@@ -1,0 +1,38 @@
+name: "Terraform Continuous Deployment"
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write   # Required for AWS OIDC authentication
+  contents: read    # Required to checkout code
+
+jobs:
+  deploy:
+    name: "Terraform Apply"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: eu-central-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.5.0"
+
+      - name: Terraform Init (No Backend)
+        run: terraform init -backend=false
+        working-directory: ./terraform
+
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: ./terraform
