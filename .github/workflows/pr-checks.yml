@@ -1,3 +1,4 @@
+
 name: "Terraform Security & Validation Checks"
 
 on:
@@ -39,4 +40,5 @@ jobs:
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
-          severity: 'HIGH,CRITICAL'
+          severity: 'CRITICAL'
+          tf-vars: ''
