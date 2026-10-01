@@ -3,8 +3,14 @@ resource "aws_s3_bucket" "lab_bucket" {
   force_destroy = true
 }
 
-# INTENTIONALLY MISCONFIGURED FOR TESTING:
-# Public Access Block removed to trigger Trivy AVD-AWS-0086 / AVD-AWS-0093 detection
+resource "aws_s3_bucket_public_access_block" "lab_bucket_pab" {
+  bucket = aws_s3_bucket.lab_bucket.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
 
 resource "aws_s3_bucket_versioning" "lab_bucket_versioning" {
   bucket = aws_s3_bucket.lab_bucket.id
