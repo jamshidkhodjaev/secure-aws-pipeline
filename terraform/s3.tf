@@ -8,7 +8,7 @@ resource "aws_s3_bucket_public_access_block" "lab_bucket_pab" {
 
   block_public_acls       = true
   block_public_policy     = true
-  ignore_public_acls      = ture
+  ignore_public_acls      = true
   restrict_public_buckets = true
 }
 
