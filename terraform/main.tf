@@ -60,13 +60,17 @@ resource "aws_iam_role" "github_actions_role" {
             "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
           }
           StringLike = {
-            "token.actions.githubusercontent.com:sub" = "repo:jamshidkhodjaev/secure-aws-pipeline:*"
+            "token.actions.githubusercontent.com:sub" = [
+              "repo:jamshidkhodjaev/secure-aws-pipeline:*",
+              "repo:jamshidkhodjaev@336101334/secure-aws-pipeline@1400139180:*"
+            ]
           }
         }
       }
     ]
   })
 }
+
 
 resource "aws_iam_role_policy" "github_actions_s3_policy" {
   name = "s3-deploy-permissions"
