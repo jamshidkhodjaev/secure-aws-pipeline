@@ -6,10 +6,10 @@ resource "aws_s3_bucket" "lab_bucket" {
 resource "aws_s3_bucket_public_access_block" "lab_bucket_pab" {
   bucket = aws_s3_bucket.lab_bucket.id
 
-  block_public_acls       = false
-  block_public_policy     = false
-  ignore_public_acls      = false
-  restrict_public_buckets = false
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = ture
+  restrict_public_buckets = true
 }
 
 resource "aws_s3_bucket_versioning" "lab_bucket_versioning" {
